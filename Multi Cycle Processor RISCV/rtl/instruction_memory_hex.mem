@@ -1,0 +1,42 @@
+// Address 0x00: Instruction 0: J-Type (jal x3, 12) -> 0x00C001EF
+EF
+01
+C0
+00
+
+// Address 0x00: Instruction 0: J-Type (jal x3, 12) -> 0x00C001EF // 0x8a075c13 
+13 
+5c
+07
+8a
+
+// Address 0x04: Instruction 1: R-Type (add x2, x1, x1) -> 0x00108133
+33
+81
+10
+00
+
+// Address 0x08: Instruction 2: S-Type (sw x2, 4(x0)) -> 0x00202223
+23
+22
+20
+00
+
+// Address 0x0C: Instruction 3: I-Type (lw x1, 100(x0)) -> 0x06402083
+83
+20
+40
+06
+
+// Address 0x10: Instruction 4: B-Type (beq x0, x0, -12) -> 0xFE000AE3
+E3
+0A
+00
+FE
+
+// Jump directly to Address 100 (Decimal 100 = Hex 64)
+@64
+2A
+00
+00
+00
