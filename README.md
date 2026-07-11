@@ -1,33 +1,36 @@
-# RISC-V Processor Design in Verilog HDL
+# RISC-V Processor Collection | Verilog HDL
 
 ![Verilog](https://img.shields.io/badge/Language-Verilog-blue)
-![ISA](https://img.shields.io/badge/ISA-RV32I-success)
-![Architecture](https://img.shields.io/badge/Processor-RISC--V-orange)
-![Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![Architecture](https://img.shields.io/badge/ISA-RV32I-success)
+![RTL](https://img.shields.io/badge/Design-RTL-orange)
+![Status](https://img.shields.io/badge/Projects-3-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-A collection of **32-bit RISC-V processor implementations** designed and verified in **Verilog HDL**.
+A collection of **32-bit RISC-V (RV32I) processor implementations** developed in **Verilog HDL**, demonstrating the evolution of processor architecture from a **Single-Cycle Processor** to a **Multicycle Processor**, and finally to a **5-Stage Pipelined Processor**.
 
-This repository documents my journey through processor design, beginning with a **Single-Cycle RV32I Processor** and progressing to a **Multicycle RV32I Processor**. Each implementation follows a modular RTL design methodology, supported by dedicated verification testbenches, simulation waveforms, and comprehensive documentation.
+Each processor is implemented using a modular RTL design methodology and verified through simulation using dedicated testbenches and waveform analysis.
 
 ---
 
-# Repository Contents
+# Repository Structure
 
 ```
-RISC-V-Processor
+RISC-V-Processors
 │
-├── Single-Cycle Processor/
+├── Single Cycle Processor
+│   ├── rtl
+│   ├── tb
+│   └── docs
 │
-│   ├── rtl/
-│   ├── tb/
-│   ├── docs/
+├── Multicycle Processor
+│   ├── rtl
+│   ├── tb
+│   └── docs
 │
-├── Multicycle Processor/
-│
-│   ├── rtl/
-│   ├── tb/
-│   ├── docs/
+├── Pipeline Processor
+│   ├── rtl
+│   ├── tb
+│   └── docs
 │
 ├── README.md
 ├── LICENSE
@@ -36,31 +39,29 @@ RISC-V-Processor
 
 ---
 
-# Implemented Processors
+# Processor Implementations
 
-| Processor | Status | Description |
-|-----------|--------|-------------|
-| Single-Cycle RV32I | ✅ Complete | Executes every instruction in one clock cycle. |
-| Multicycle RV32I | ✅ Complete | Executes instructions over multiple cycles using an FSM-based control unit and shared hardware resources. |
+| Processor | Description | Status |
+|------------|-------------|--------|
+| **Single-Cycle Processor** | Executes each instruction in a single clock cycle using dedicated hardware resources. | ✅ Completed |
+| **Multicycle Processor** | Executes instructions across multiple clock cycles using an FSM-based control unit and shared hardware resources. | ✅ Completed |
+| **5-Stage Pipeline Processor** | Implements instruction pipelining with hazard detection to improve throughput and processor performance. | ✅ Completed |
 
 ---
 
 # Single-Cycle Processor
 
-The Single-Cycle processor implements the classical RV32I datapath where each instruction completes within one clock cycle.
-
-## Features
+### Features
 
 - 32-bit RV32I Processor
+- Modular RTL Design
 - Separate Instruction & Data Memories
 - Register File
 - ALU
 - Immediate Generator
-- Main Decoder
+- Main Control Unit
 - ALU Decoder
-- Program Counter
-- Branch Logic
-- Jump Logic
+- Branch & Jump Logic
 - Self-checking Testbench
 
 ### Supported Instructions
@@ -79,36 +80,34 @@ The Single-Cycle processor implements the classical RV32I datapath where each in
 ### Datapath
 
 <p align="center">
-<img src="Single-Cycle Processor/docs/datapath.png" width="900">
+<img src="Single%20Cycle%20Processor/docs/datapath.png" width="900">
 </p>
 
 ### Block Diagram
 
 <p align="center">
-<img src="Single-Cycle Processor/docs/block_diagram.png" width="850">
+<img src="Single%20Cycle%20Processor/docs/block_diagram.png" width="850">
 </p>
 
-### Top-Level Simulation
+### Simulation Waveform
 
 <p align="center">
-<img src="Single-Cycle Processor/docs/top_waveform.png">
+<img src="Single%20Cycle%20Processor/docs/top_waveform.png">
 </p>
 
 ---
 
 # Multicycle Processor
 
-The Multicycle processor extends the single-cycle architecture by introducing an FSM-based control unit, unified memory, and hardware resource sharing to reduce hardware cost.
-
-## Features
+### Features
 
 - 32-bit RV32I Processor
-- Unified Instruction/Data Memory
-- FSM-based Main Decoder
-- Moore State Machine
-- Non-Architectural Pipeline Registers
+- Finite State Machine (FSM) Controller
 - Shared ALU
 - Shared Memory
+- Unified Datapath
+- Non-Architectural Registers
+- Modular RTL Design
 - Automatic Verification Testbench
 
 ### Execution Stages
@@ -121,53 +120,83 @@ The Multicycle processor extends the single-cycle architecture by introducing an
 
 ### Processor Architecture
 
-The processor implements the classical multicycle datapath described in *Digital Design and Computer Architecture – RISC-V Edition* by Sarah Harris & David Harris.
+The implementation follows the classical multicycle architecture presented in *Digital Design and Computer Architecture – RISC-V Edition* by Sarah Harris and David Harris.
 
 ---
 
-# Verification
+# 5-Stage Pipeline Processor
 
-Both processors were verified using dedicated module-level and top-level simulation environments.
+The pipelined processor increases instruction throughput by overlapping instruction execution across multiple stages while resolving hazards through dedicated hardware.
 
-## Single-Cycle Verification
+### Pipeline Stages
 
-- ✅ ALU
-- ✅ Register File
-- ✅ Program Counter
-- ✅ Instruction Memory
-- ✅ Data Memory
-- ✅ Immediate Generator
-- ✅ Multiplexers
-- ✅ Complete Processor
+- Instruction Fetch (IF)
+- Instruction Decode (ID)
+- Execute (EX)
+- Memory Access (MEM)
+- Write Back (WB)
 
-## Multicycle Verification
+### RTL Modules
 
-- ✅ Unified Memory
-- ✅ Datapath
-- ✅ Control Unit
-- ✅ Main FSM
-- ✅ Register File
-- ✅ ALU
-- ✅ Immediate Generator
-- ✅ Top-Level Integration
+- Fetch
+- Decode
+- Execute
+- Memory
+- WriteBack
+- Hazard Unit
+- Control Unit
+- Register File
+- ALU
+- Instruction Memory
+- Data Memory
+- Immediate Generator
+- Pipeline Registers
+- Multiplexers
+- Top Module
+
+### Block Diagram
+
+<p align="center">
+<img src="Pipeline%20Processor/docs/block_diagram_pipeline_processor.png" width="900">
+</p>
+
+### Processor Schematic
+
+<p align="center">
+<img src="Pipeline%20Processor/docs/Schematic_diagram.png" width="900">
+</p>
+
+### Top-Level Simulation
+
+<p align="center">
+<img src="Pipeline%20Processor/docs/TOP_WAVEFORM.png">
+</p>
 
 ---
 
 # Repository Highlights
 
-- Modular RTL Design
-- Verilog HDL
-- RV32I ISA
-- Single-Cycle Processor
-- Multicycle Processor
-- Processor Datapath Design
-- FSM Control Unit
-- Register File
-- ALU
-- Memory Interface
-- Simulation & Verification
-- Vivado Simulation
-- Waveform Analysis
+✔ RTL Design using Verilog HDL
+
+✔ Modular Hardware Architecture
+
+✔ RV32I Instruction Set
+
+✔ Single-Cycle CPU
+
+✔ Multicycle CPU
+
+✔ 5-Stage Pipeline CPU
+
+✔ Hazard Detection Unit
+
+✔ FSM-Based Controller
+
+✔ Processor Verification
+
+✔ Simulation Waveforms
+
+✔ Vivado Simulation
 
 ---
 
@@ -181,19 +210,35 @@ Both processors were verified using dedicated module-level and top-level simulat
 
 ---
 
+# Skills Demonstrated
+
+- Computer Architecture
+- RTL Design
+- Digital Logic Design
+- Processor Datapath Design
+- Pipeline Architecture
+- Hazard Detection
+- FSM Design
+- Register File Design
+- ALU Design
+- Memory Interface
+- Verification & Simulation
+- FPGA Design Fundamentals
+
+---
+
 # Future Work
 
-The repository will continue to expand with more advanced processor implementations, including:
+Planned enhancements include:
 
-- Five-Stage Pipelined Processor
-- Hazard Detection Unit
-- Forwarding Unit
+- Data Forwarding Unit
 - Branch Prediction
-- RV32M Extension
 - Instruction Cache
 - Data Cache
+- RV32M Extension (Multiply/Divide)
+- CSR Instructions
 - UART Peripheral
-- FPGA Deployment
+- FPGA Implementation and Hardware Validation
 
 ---
 
@@ -205,7 +250,7 @@ The processor architectures and datapath concepts are based on:
 
 *Digital Design and Computer Architecture – RISC-V Edition*
 
-The RTL implementation, module integration, simulation, verification, and documentation were developed independently as part of my Digital IC Design & Verification training.
+The RTL implementation, integration, verification, and documentation were independently developed as part of my Digital IC Design & Verification training.
 
 ---
 
@@ -213,7 +258,7 @@ The RTL implementation, module integration, simulation, verification, and docume
 
 ## Fahad Ahmad
 
-Electrical Engineer | Digital IC Design | RTL Design | FPGA | Verilog HDL | RISC-V | Embedded Systems
+**Electrical Engineer | Digital IC Design | RTL Design | FPGA | Verilog HDL | RISC-V | Embedded Systems**
 
 **LinkedIn**
 
