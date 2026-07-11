@@ -1,9 +1,9 @@
 # RISC-V Processor Collection | Verilog HDL
 
 ![Verilog](https://img.shields.io/badge/Language-Verilog-blue)
-![Architecture](https://img.shields.io/badge/ISA-RV32I-success)
+![ISA](https://img.shields.io/badge/ISA-RV32I-success)
 ![RTL](https://img.shields.io/badge/Design-RTL-orange)
-![Status](https://img.shields.io/badge/Projects-3-brightgreen)
+![Projects](https://img.shields.io/badge/Processors-3-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 A collection of **32-bit RISC-V (RV32I) processor implementations** developed in **Verilog HDL**, demonstrating the evolution of processor architecture from a **Single-Cycle Processor** to a **Multicycle Processor**, and finally to a **5-Stage Pipelined Processor**.
@@ -15,26 +15,26 @@ Each processor is implemented using a modular RTL design methodology and verifie
 # Repository Structure
 
 ```
-RISC-V-Processors
+RISCV-Processor
 │
-├── Single Cycle Processor
+├── Single Cycle Processor RISCV
 │   ├── rtl
 │   ├── tb
 │   └── docs
 │
-├── Multicycle Processor
+├── Multi Cycle Processor RISCV
 │   ├── rtl
 │   ├── tb
 │   └── docs
 │
-├── Pipeline Processor
+├── Pipeline Processor RISCV
 │   ├── rtl
 │   ├── tb
 │   └── docs
 │
 ├── README.md
 ├── LICENSE
-└── .gitignore
+└── .gitattributes
 ```
 
 ---
@@ -43,25 +43,24 @@ RISC-V-Processors
 
 | Processor | Description | Status |
 |------------|-------------|--------|
-| **Single-Cycle Processor** | Executes each instruction in a single clock cycle using dedicated hardware resources. | ✅ Completed |
-| **Multicycle Processor** | Executes instructions across multiple clock cycles using an FSM-based control unit and shared hardware resources. | ✅ Completed |
-| **5-Stage Pipeline Processor** | Implements instruction pipelining with hazard detection to improve throughput and processor performance. | ✅ Completed |
+| **Single-Cycle Processor** | Executes every instruction in one clock cycle. | ✅ Completed |
+| **Multicycle Processor** | Executes instructions over multiple clock cycles using an FSM-based controller. | ✅ Completed |
+| **5-Stage Pipeline Processor** | Executes instructions using a classic 5-stage pipeline with hazard detection. | ✅ Completed |
 
 ---
 
-# Single-Cycle Processor
+# Single Cycle Processor
 
-### Features
+## Features
 
-- 32-bit RV32I Processor
+- RV32I Architecture
+- 32-bit Datapath
 - Modular RTL Design
 - Separate Instruction & Data Memories
 - Register File
 - ALU
 - Immediate Generator
-- Main Control Unit
-- ALU Decoder
-- Branch & Jump Logic
+- Branch & Jump Support
 - Self-checking Testbench
 
 ### Supported Instructions
@@ -77,38 +76,36 @@ RISC-V-Processors
 - BEQ
 - JAL
 
-### Datapath
+## Datapath
 
-<p align="center">
-<img src="Single%20Cycle%20Processor/docs/datapath.png" width="900">
-</p>
-
-### Block Diagram
-
-<p align="center">
-<img src="Single%20Cycle%20Processor/docs/block_diagram.png" width="850">
-</p>
-
-### Simulation Waveform
-
-<p align="center">
-<img src="Single%20Cycle%20Processor/docs/top_waveform.png">
-</p>
+![Datapath](./Single%20Cycle%20Processor%20RISCV/docs/datapath.png)
 
 ---
 
-# Multicycle Processor
+## Block Diagram
 
-### Features
+![Block Diagram](./Single%20Cycle%20Processor%20RISCV/docs/block_diagram.png)
 
-- 32-bit RV32I Processor
-- Finite State Machine (FSM) Controller
+---
+
+## Top-Level Simulation
+
+![Top Waveform](./Single%20Cycle%20Processor%20RISCV/docs/top_waveform.png)
+
+---
+
+# Multi Cycle Processor
+
+## Features
+
+- RV32I Architecture
+- Finite State Machine Controller
 - Shared ALU
 - Shared Memory
 - Unified Datapath
-- Non-Architectural Registers
+- Multi-Cycle Execution
+- Reduced Hardware Utilization
 - Modular RTL Design
-- Automatic Verification Testbench
 
 ### Execution Stages
 
@@ -118,17 +115,13 @@ RISC-V-Processors
 - Memory Access
 - Write Back
 
-### Processor Architecture
-
-The implementation follows the classical multicycle architecture presented in *Digital Design and Computer Architecture – RISC-V Edition* by Sarah Harris and David Harris.
-
 ---
 
-# 5-Stage Pipeline Processor
+# Pipeline Processor
 
-The pipelined processor increases instruction throughput by overlapping instruction execution across multiple stages while resolving hazards through dedicated hardware.
+The pipelined processor improves throughput by overlapping instruction execution across five stages while resolving hazards using dedicated hardware.
 
-### Pipeline Stages
+## Pipeline Stages
 
 - Instruction Fetch (IF)
 - Instruction Decode (ID)
@@ -136,7 +129,7 @@ The pipelined processor increases instruction throughput by overlapping instruct
 - Memory Access (MEM)
 - Write Back (WB)
 
-### RTL Modules
+## RTL Modules
 
 - Fetch
 - Decode
@@ -154,49 +147,39 @@ The pipelined processor increases instruction throughput by overlapping instruct
 - Multiplexers
 - Top Module
 
-### Block Diagram
+---
 
-<p align="center">
-<img src="Pipeline%20Processor/docs/block_diagram_pipeline_processor.png" width="900">
-</p>
+## Block Diagram
 
-### Processor Schematic
+![Pipeline Block Diagram](./Pipeline%20Processor%20RISCV/docs/block_diagram_pipeline_processor.png)
 
-<p align="center">
-<img src="Pipeline%20Processor/docs/Schematic_diagram.png" width="900">
-</p>
+---
 
-### Top-Level Simulation
+## Processor Schematic
 
-<p align="center">
-<img src="Pipeline%20Processor/docs/TOP_WAVEFORM.png">
-</p>
+![Pipeline Schematic](./Pipeline%20Processor%20RISCV/docs/Schematic_diagram.png)
+
+---
+
+## Top-Level Simulation
+
+![Pipeline Waveform](./Pipeline%20Processor%20RISCV/docs/TOP_WAVEFORM.png)
 
 ---
 
 # Repository Highlights
 
-✔ RTL Design using Verilog HDL
-
-✔ Modular Hardware Architecture
-
-✔ RV32I Instruction Set
-
-✔ Single-Cycle CPU
-
-✔ Multicycle CPU
-
-✔ 5-Stage Pipeline CPU
-
-✔ Hazard Detection Unit
-
-✔ FSM-Based Controller
-
-✔ Processor Verification
-
-✔ Simulation Waveforms
-
-✔ Vivado Simulation
+- ✔ Modular RTL Design
+- ✔ Verilog HDL
+- ✔ RV32I Instruction Set
+- ✔ Single-Cycle Architecture
+- ✔ Multicycle Architecture
+- ✔ 5-Stage Pipeline Architecture
+- ✔ Hazard Detection Unit
+- ✔ Datapath Design
+- ✔ FSM-Based Controller
+- ✔ Simulation & Verification
+- ✔ Vivado Simulation
 
 ---
 
@@ -214,16 +197,16 @@ The pipelined processor increases instruction throughput by overlapping instruct
 
 - Computer Architecture
 - RTL Design
+- FPGA Design
 - Digital Logic Design
 - Processor Datapath Design
 - Pipeline Architecture
 - Hazard Detection
-- FSM Design
 - Register File Design
 - ALU Design
-- Memory Interface
+- Control Unit Design
+- Memory Interface Design
 - Verification & Simulation
-- FPGA Design Fundamentals
 
 ---
 
@@ -235,10 +218,10 @@ Planned enhancements include:
 - Branch Prediction
 - Instruction Cache
 - Data Cache
-- RV32M Extension (Multiply/Divide)
-- CSR Instructions
+- RV32M Extension
 - UART Peripheral
-- FPGA Implementation and Hardware Validation
+- FPGA Hardware Implementation
+- Performance Benchmarking
 
 ---
 
@@ -250,7 +233,7 @@ The processor architectures and datapath concepts are based on:
 
 *Digital Design and Computer Architecture – RISC-V Edition*
 
-The RTL implementation, integration, verification, and documentation were independently developed as part of my Digital IC Design & Verification training.
+The RTL implementation, module integration, verification environment, and documentation were independently developed as part of my Digital IC Design & Verification training.
 
 ---
 
@@ -260,11 +243,11 @@ The RTL implementation, integration, verification, and documentation were indepe
 
 **Electrical Engineer | Digital IC Design | RTL Design | FPGA | Verilog HDL | RISC-V | Embedded Systems**
 
-**LinkedIn**
+### LinkedIn
 
 https://www.linkedin.com/in/fahad-ahmad-electricalengineer
 
-**GitHub**
+### GitHub
 
 https://github.com/gitfahadahmad
 
